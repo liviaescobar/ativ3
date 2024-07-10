@@ -1,25 +1,32 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useMemo } from 'react';
 
-function App() {
+const factorial = (n) => {
+  if (n < 0) return -1;
+  if (n === 0) return 1;
+  let result = 1;
+  for (let i = 1; i <= n; i++) {
+    result *= i;
+  }
+  return result;
+};
+
+const App = () => {
+  const [number, setNumber] = useState(0);
+
+  const factorialResult = useMemo(() => factorial(number), [number]);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div style={{ textAlign: 'center', marginTop: '50px' }}>
+      <h1>Calculadora de Fatorial</h1>
+      <input
+        type="number"
+        value={number}
+        onChange={(e) => setNumber(parseInt(e.target.value))}
+        min="0"
+      />
+      <h2>Fatorial de {number} é: {factorialResult}</h2>
     </div>
   );
-}
+};
 
 export default App;
